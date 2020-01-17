@@ -163,6 +163,8 @@ export class SpinButton extends React.Component<ISpinButtonProps, ISpinButtonSta
 
     const { isFocused, value, keyboardSpinDirection } = this.state;
 
+    const isLabelPositionBefore = labelPosition === Position.top || labelPosition === Position.start;
+
     const classNames = this.props.getClassNames
       ? this.props.getClassNames(theme!, disabled, isFocused, keyboardSpinDirection, labelPosition, className)
       : getClassNames(getStyles(theme!, customStyles), disabled, isFocused, keyboardSpinDirection, labelPosition, className);
@@ -171,7 +173,7 @@ export class SpinButton extends React.Component<ISpinButtonProps, ISpinButtonSta
 
     return (
       <div className={classNames.root}>
-        {labelPosition !== Position.bottom && (iconProps || label) && (
+        {isLabelPositionBefore && (iconProps || label) && (
           <div className={classNames.labelWrapper}>
             {iconProps && <Icon {...iconProps} className={classNames.icon} aria-hidden="true" />}
             {label && (
@@ -250,7 +252,7 @@ export class SpinButton extends React.Component<ISpinButtonProps, ISpinButtonSta
             </div>
           )}
         </KeytipData>
-        {labelPosition === Position.bottom && (iconProps || label) && (
+        {!isLabelPositionBefore && (iconProps || label) && (
           <div className={classNames.labelWrapper}>
             {iconProps && <Icon iconName={iconProps.iconName} className={classNames.icon} aria-hidden="true" />}
             {label && (
